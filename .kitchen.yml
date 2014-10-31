@@ -11,11 +11,17 @@ provisioner:
 
 platforms:
 - name: centos-6
+  provision_command:
+    - yum install -y tar curl
+
 - name: centos7
+  provision_command:
+    - yum install -y tar curl
   driver:
     dockerfile: test/cent7-dockerfile
     platform: centos
     run_command: /usr/sbin/init
+
 - name: ubuntu-12.04
 - name: ubuntu-14.04
 
