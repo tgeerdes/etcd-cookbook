@@ -1,0 +1,31 @@
+box: wercker-labs/docker
+
+build:
+  steps:
+    - script:
+      name: chefdk install
+      code: |
+        curl -L -o /tmp/chefdk.deb http://opscode-omnibus-packages.s3.amazonaws.com/ubuntu/12.04/x86_64/chefdk_0.3.2-1_amd64.deb 
+        dpkg -i /tmp/chefdk.deb
+
+    - script:
+      name: RuboCop
+      code: rubocop -Da
+
+    - script:
+      name: Food Critic
+      code: foodcritic -f correctness,services,libraries,depricated .
+
+    - script: 
+      name: chefSpec
+      code: |
+        # rspec  --format documentation --color  "test/spec"
+        #  disabled atm 
+        true
+
+    - script:
+      name: Kitchen
+      code: kitchen test -c 4
+
+
+

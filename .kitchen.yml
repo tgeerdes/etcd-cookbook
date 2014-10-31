@@ -1,9 +1,9 @@
 ---
-settings:
-  parallel: true
-
 driver:
   name: docker
+  use_sudo: false
+  socket: <%= ENV['DOCKER_HOST'] %>
+  run_command: /sbin/init
 
 provisioner:
   name: chef_zero
@@ -11,8 +11,13 @@ provisioner:
 
 platforms:
 - name: centos-6
-- name: centos-7
+- name: centos7
+  driver:
+    dockerfile: test/cent7-dockerfile
+    platform: centos
+    run_command: /usr/sbin/init
 - name: ubuntu-12.04
+- name: ubuntu-14.04
 
 suites:
 - name: release

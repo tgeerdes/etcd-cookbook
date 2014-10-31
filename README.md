@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/spheromak/etcd-cookbook.png)](https://travis-ci.org/spheromak/etcd-cookbook)
+[![wercker status](https://app.wercker.com/status/c0a6917e13ab5887244131cf9edd51a9/m/master "wercker status")](https://app.wercker.com/project/bykey/c0a6917e13ab5887244131cf9edd51a9)
 etcd cookbook - installs coreos/etcd on centos/ubuntu boxen
 
 ## Supported Platforms
