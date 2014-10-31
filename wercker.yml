@@ -1,4 +1,6 @@
-box: box-cutter/chefdk
+box: ami-ac8a07c4
+box-type: ami
+
 build:
    steps:
      - script:
