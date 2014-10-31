@@ -4,10 +4,7 @@ description "etcd service registry"
 respawn
 <%- end %>
 
-setuid <%= node[:etcd][:user] %>
-setgid <%= node[:etcd][:group] %>
-
 start on <%= node[:etcd][:upstart][:start_on] %>
 stop on <%= node[:etcd][:upstart][:stop_on] %>
 
-exec /usr/local/bin/etcd <%= @args %> -data-dir <%= node[:etcd][:state_dir] %>
+exec su -c '/usr/local/bin/etcd <%= @args %> -data-dir <%= node[:etcd][:state_dir] %>' <%= node[:etcd][:user] %>
