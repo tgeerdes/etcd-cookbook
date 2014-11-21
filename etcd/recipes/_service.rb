@@ -9,15 +9,16 @@ init = false
 upstart = true
 init_provider = Chef::Provider::Service::Upstart
 
-if node[:platform_family] == 'rhel' && node[:platform_version].to_i >= 7
-  systemd = true
-  upstart = false
-  init_provider = Chef::Provider::Service::Systemd
-end
-if node[:platform] == 'debian'
+#if node[:platform_family] == 'rhel' && node[:platform_version].to_i >= 7
+#  systemd = true
+#  upstart = false
+#  init_provider = Chef::Provider::Service::Systemd
+#end
+if node[:platform] == 'opsworks'
   init_provider = Chef::Provider::Service::Init::Debian
   init = true
   upstart = false
+  systemd = false
 end
 
 directory File.dirname node[:etcd][:state_dir] do
@@ -48,18 +49,18 @@ template '/etc/init/etcd.conf' do
 end
 
 # TODO: use this on other sytemd platforms
-template '/etc/systemd/system/etcd.service' do
-  mode 0644
-  variables(args: Etcd.args)
-  notifies :run, 'execute[systemd_reload_units]', :immediate
-  notifies :restart, 'service[etcd]' if node[:etcd][:trigger_restart]
-  only_if { systemd }
-end
+#template '/etc/systemd/system/etcd.service' do
+#  mode 0644
+#  variables(args: Etcd.args)
+#  notifies :run, 'execute[systemd_reload_units]', :immediate
+#  notifies :restart, 'service[etcd]' if node[:etcd][:trigger_restart]
+#  only_if { systemd }
+#end
 
-execute 'systemd_reload_units' do
-  action :nothing
-  command '/bin/systemctl daemon-reload'
-end
+#execute 'systemd_reload_units' do
+#  action :nothing
+#  command '/bin/systemctl daemon-reload'
+#end
 
 service 'etcd' do
   provider init_provider
