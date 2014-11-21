@@ -16,8 +16,8 @@
 #end
 if node[:platform] == 'amazon'
   init_provider = Chef::Provider::Service::Init::Upstart
-  init = true
-  upstart = false
+  init = false
+  upstart = true
   systemd = false
 end
 
