@@ -4,17 +4,17 @@
 #
 
 ## handle rhel7/debian
-systemd = false
-init = false
-upstart = true
-init_provider = Chef::Provider::Service::Upstart
+#systemd = false
+#init = false
+#upstart = true
+#init_provider = Chef::Provider::Service::Upstart
 
 #if node[:platform_family] == 'rhel' && node[:platform_version].to_i >= 7
 #  systemd = true
 #  upstart = false
 #  init_provider = Chef::Provider::Service::Systemd
 #end
-if node[:platform] == 'opsworks'
+if node[:platform] == 'amazon'
   init_provider = Chef::Provider::Service::Init::Debian
   init = true
   upstart = false
