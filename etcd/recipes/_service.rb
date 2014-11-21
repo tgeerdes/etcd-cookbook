@@ -15,9 +15,10 @@
 #  init_provider = Chef::Provider::Service::Systemd
 #end
 if node[:platform] == 'amazon'
-  init_provider = Chef::Provider::Service::Init::Upstart
-  init = false
-  upstart = true
+  #init_provider = Chef::Provider::Service::Init::Upstart
+  init_provider = Chef::Provider::Service::Init
+  init = true
+  upstart = false
   systemd = false
 end
 
@@ -41,12 +42,12 @@ template '/etc/default/etcd' do
   only_if { init }
 end
 
-template '/etc/init/etcd.conf' do
-  mode 0644
-  variables(args: Etcd.args)
-  notifies :restart, 'service[etcd]' if node[:etcd][:trigger_restart]
-  only_if { upstart }
-end
+#template '/etc/init/etcd.conf' do
+#  mode 0644
+#  variables(args: Etcd.args)
+#  notifies :restart, 'service[etcd]' if node[:etcd][:trigger_restart]
+#  only_if { upstart }
+#end
 
 # TODO: use this on other sytemd platforms
 #template '/etc/systemd/system/etcd.service' do
