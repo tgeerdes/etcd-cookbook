@@ -15,7 +15,7 @@
 #  init_provider = Chef::Provider::Service::Systemd
 #end
 if node[:platform] == 'amazon'
-  init_provider = Chef::Provider::Service::Init::Debian
+  init_provider = Chef::Provider::Service::Init::Upstart
   init = true
   upstart = false
   systemd = false
