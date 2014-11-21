@@ -14,13 +14,13 @@
 #  upstart = false
 #  init_provider = Chef::Provider::Service::Systemd
 #end
-if node[:platform] == 'amazon'
+#if node[:platform] == 'amazon'
   #init_provider = Chef::Provider::Service::Init::Upstart
-  init_provider = Chef::Provider::Service::Init
-  init = true
-  upstart = false
-  systemd = false
-end
+#  init_provider = Chef::Provider::Service::Init
+#  init = true
+#  upstart = false
+#  systemd = false
+#end
 
 directory File.dirname node[:etcd][:state_dir] do
   user node[:etcd][:user]
